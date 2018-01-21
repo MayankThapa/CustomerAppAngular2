@@ -1,0 +1,66 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12" style="height: 650px;overflow: auto;">
+      <h3>Add Customer</h3>
+      <hr>
+      <form [formGroup]="addCustomerForm" (ngSubmit)="saveCustomer()" novalidate>
+        <div class="form-group row">
+          <label for="" class="col-md-12">Name</label>
+          <div class="col-md-12">
+            <input type="text" class="form-control" [(ngModel)]="customerName" name="customerName" formControlName="customerName">
+          </div>
+          <br>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-md-12">Phone</label>
+          <div class="col-md-12">
+            <input type="text" class="form-control" [(ngModel)]="phone" name="phone" formControlName="phone">
+          </div>
+          <br>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-md-12">DOB</label>
+          <div class="col-md-12">
+            <input type="text" class="form-control" [(ngModel)]="dob" name="dob" formControlName="dob">
+          </div>
+          <br>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-md-12">Email</label>
+          <div class="col-md-12">
+            <input type="email" class="form-control" [(ngModel)]="email" name="email" formControlName="email">
+          </div>
+          <br>
+        </div>
+
+        <div formArrayName="address">
+          <div *ngFor="let address of addCustomerForm.controls.address.controls; let i=index" class="panel panel-default">
+            <div class="panel-heading">
+              <span>Address {{i + 1}}</span>
+              <span class="glyphicon glyphicon-remove pull-right" *ngIf="addCustomerForm.controls.address.controls.length > 1" (click)="removeAddress(i)"></span>
+            </div>
+            <div class="panel-body" [formGroupName]="i">
+              <address [group]="addCustomerForm.controls.address.controls[i]"></address>
+            </div>
+          </div>
+        </div>
+
+        <div class="margin-20" style="margin: 25px 0px 20px;">
+          <a (click)="addAddress()" style="cursor: default">
+            Add another address +
+          </a>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-md-12">
+            <input type="submit" [disabled]="addCustomerForm.invalid" class="btn btn-primary" value="Save" />
+            <input type="button" class="btn btn-warning" value="Cancel" (click)="cancel()">
+          </div>
+
+        </div>
+      </form>
+
+    </div>
+
+  </div>
+</div>
